@@ -21,7 +21,7 @@ function PostList() {
   const fetchData = useCallback(async () => {
     const newData = await getPostList();
     setData(newData);
-    if (page === 1) {
+    if (page === 1 && newData.posts && newData.posts.length > 0) {
       setTotalDataLength(newData.posts[0].id);
     }
     console.log(newData);
@@ -71,7 +71,7 @@ function PostList() {
           <th style={{ width: "25%" }}>공유자</th>
           <th style={{ width: "25%" }}>작성일</th>
         </ListHeadWrapper>
-        {data.posts.length > 0 ? (
+        {data.posts && data.posts.length > 0 ? (
           data.posts.map((res, i) => <PostListContent key={i} data={res} />)
         ) : (
           // 로딩 컴포넌트
