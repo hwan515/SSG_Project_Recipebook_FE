@@ -26,7 +26,7 @@ function PostList() {
     }
     console.log(newData);
     console.log(totalDataLength);
-  }, [page, setTotalDataLength, getPostList]);
+  }, [page, setTotalDataLength, getPostList, totalDataLength]);  
 
   useEffect(() => {
     fetchData();
