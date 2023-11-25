@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { ReactComponent as LikeIcon } from '../../assets/img/icon-like.svg';
 import { useLocation } from 'react-router-dom';
