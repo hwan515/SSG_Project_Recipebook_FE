@@ -15,22 +15,35 @@ function PostList() {
   const [data, setData] = useState({ posts: [] });
   const [totalDataLength, setTotalDataLength] = useState(0);
 
-// 데이터 가져오는 함수
-const getPostList = useCallback(() => PostListAPI(page), [page]);
+  // 데이터 가져오는 함수
+  const getPostList = useCallback(() => PostListAPI(page), [page]);
 
-const fetchData = useCallback(async () => {
-  const newData = await getPostList();
-  setData(newData);
-  if (page === 1) {
-    setTotalDataLength(newData.posts[0].id);
-  }
-  console.log(newData);
-  console.log(totalDataLength);
-  }, [page, setTotalDataLength, getPostList]);  // 종속성 추가
-  
+  const fetchData = useCallback(async () => {
+    const newData = await getPostList();
+    setData(newData);
+    if (page === 1) {
+      setTotalDataLength(newData.posts[0].id);
+    }
+    console.log(newData);
+    console.log(totalDataLength);
+  }, [page, setTotalDataLength, getPostList]);
+
   useEffect(() => {
-    fetchData();  // useCallback으로 감싼 함수를 호출
-  }, [fetchData]);  // 콜백 자체를 종속성 배열에 추가
+    fetchData();
+  }, [fetchData]);
+
+  // 페이지 변경 시 데이터 가져오기
+  useEffect(() => {
+    // postData 함수 정의
+    const postData = async () => {
+      // 여기에 해당 함수의 내용을 추가
+    };
+
+    // fetchData와 totalDataLength를 종속성 배열에 추가
+    postData();
+    console.log(totalDataLength);
+  }, [page, totalDataLength, fetchData]);
+
 
   return (
     <LayoutWrapper>

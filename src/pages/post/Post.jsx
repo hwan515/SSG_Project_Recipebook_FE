@@ -33,101 +33,88 @@ function Post() {
   // 새로운 댓글을 게시하는 API 호출 함수
   const postComment = PostCommentAPI(postID, token, csrfToken, newComment);
 
-// 게시물 데이터와 댓글 데이터를 가져오는 함수
-async function fetchData() {
-  const res = await getPostDetail();
-  setData(res.post);
-  setCommentData(res.comments);
-  return res;
-}
+  // 게시물 데이터와 댓글 데이터를 가져오는 함수
+  const fetchData = useCallback(async () => {
+    const res = await getPostDetail();
+    setData(res.post);
+    setCommentData(res.comments);
+    return res;
+  }, [getPostDetail]);
 
-// 컴포넌트가 로드될 때 게시물 데이터와 댓글 데이터 가져오기
-useEffect(() => {
-  fetchData();
-}, []);  // 빈 배열을 사용하여 컴포넌트가 처음 로드될 때만 호출
-
-// 또는 useCallback 사용
-const fetchDataCallback = useCallback(() => {
-  fetchData();
-}, []);  // 빈 배열을 사용하여 fetchData 함수가 변하지 않음을 보장
-
-// 컴포넌트가 로드될 때 게시물 데이터와 댓글 데이터 가져오기
-useEffect(() => {
-  fetchDataCallback();
-}, [fetchDataCallback]);
-
+  // 컴포넌트가 로드될 때 게시물 데이터와 댓글 데이터 가져오기
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   // 댓글 입력 값이 변경될 때 호출되는 함수
   const commentChange = (e) => {
     setNewComment(e.target.value);
   };
 
-  const time = dateTrance(data.create_date);
-
   // 댓글 제출 처리 함수
-  async function commentSubmitHandler(e) {
+  const commentSubmitHandler = async (e) => {
     e.preventDefault();
     await postComment();
     setNewComment('');
     const newRes = await fetchData();
     setCommentData(newRes.comments);
-  }
+  };
 
-    return (
-      <>
-        <h2>{data.title}</h2>
-        <SectionWrapper>
-          {data.content}
-          <StyledLike>
-            <LikeIcon /> {data.like}
-          </StyledLike>
-          <StyledTime>{time}</StyledTime>
-        </SectionWrapper>
-        <StyledComment>comment : {commentData.length}</StyledComment>
-        <CommentInput>
-          <form onSubmit={commentSubmitHandler}>
-            <Input
-              width={'100%'}
-              onChange={commentChange}
-              type='text'
-              id='comment'
-              value={newComment}
-            />
-            <Button
-              type='submit'
-              height={'42px'}
-              width={'82px'}
-              content={'댓글 등록'}
-              backgroundcolor={'white'}
-              color={'var(--main-color)'}
-              style={{
-                position: 'absolute',
-                right: '0px',
-                top: '15px',
-                border: '1px solid var(--main-color)',
-              }}
-            />
-          </form>
-        </CommentInput>
-        <CommentSection>
-          {commentData.length > 0 ? (
-            commentData.map((comment, index) => (
-              <Comments key={index}>
-                <StyledId>
-                  {comment.username}
-                </StyledId>
-                <p>{comment.content}</p>
-                <StyledTime style={{ top: '5px', bottom: '0', fontSize: '10px' }}>
-                  {dateTrance(comment.create_date)}
-                </StyledTime>
-              </Comments>
-            ))
-          ) : (
-            <Loading />
-          )}
-        </CommentSection>
-      </>
-    );
+  const time = dateTrance(data.create_date);
+
+  return (
+    <>
+      <h2>{data.title}</h2>
+      <SectionWrapper>
+        {data.content}
+        <StyledLike>
+          <LikeIcon /> {data.like}
+        </StyledLike>
+        <StyledTime>{time}</StyledTime>
+      </SectionWrapper>
+      <StyledComment>comment: {commentData.length}</StyledComment>
+      <CommentInput>
+        <form onSubmit={commentSubmitHandler}>
+          <Input
+            width={'100%'}
+            onChange={commentChange}
+            type='text'
+            id='comment'
+            value={newComment}
+          />
+          <Button
+            type='submit'
+            height={'42px'}
+            width={'82px'}
+            content={'댓글 등록'}
+            backgroundcolor={'white'}
+            color={'var(--main-color)'}
+            style={{
+              position: 'absolute',
+              right: '0px',
+              top: '15px',
+              border: '1px solid var(--main-color)',
+            }}
+          />
+        </form>
+      </CommentInput>
+      <CommentSection>
+        {commentData.length > 0 ? (
+          commentData.map((comment, index) => (
+            <Comments key={index}>
+              <StyledId>{comment.username}</StyledId>
+              <p>{comment.content}</p>
+              <StyledTime style={{ top: '5px', bottom: '0', fontSize: '10px' }}>
+                {dateTrance(comment.create_date)}
+              </StyledTime>
+            </Comments>
+          ))
+        ) : (
+          <Loading />
+        )}
+      </CommentSection>
+    </>
+  );
 }
 
 const CommentInput = styled.div`
