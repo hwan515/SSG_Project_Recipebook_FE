@@ -17,7 +17,7 @@ function PostList() {
   const getPostList = PostListAPI(page);
 
   // 데이터 가져오는 함수
-  const postData = async () => {
+  const fetchData = useCallback(async () => {
     const newData = await getPostList();
     setData(newData);
     if (page === 1) {
@@ -25,7 +25,11 @@ function PostList() {
     }
     console.log(newData);
     console.log(totalDataLength);
-  };
+  }, [page, setTotalDataLength]);  // 종속성 추가
+  
+  useEffect(() => {
+    fetchData();  // useCallback으로 감싼 함수를 호출
+  }, [fetchData]);  // 콜백 자체를 종속성 배열에 추가
 
 
 // 페이지 변경 시 데이터 가져오기

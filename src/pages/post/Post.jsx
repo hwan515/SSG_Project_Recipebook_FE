@@ -33,18 +33,29 @@ function Post() {
   // 새로운 댓글을 게시하는 API 호출 함수
   const postComment = PostCommentAPI(postID, token, csrfToken, newComment);
 
-  // 게시물 데이터와 댓글 데이터를 가져오는 함수
-  async function fetchData() {
-    const res = await getPostDetail();
-    setData(res.post);
-    setCommentData(res.comments);
-    return res;
-  }
+// 게시물 데이터와 댓글 데이터를 가져오는 함수
+async function fetchData() {
+  const res = await getPostDetail();
+  setData(res.post);
+  setCommentData(res.comments);
+  return res;
+}
 
-  // 컴포넌트가 로드될 때 게시물 데이터와 댓글 데이터 가져오기
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+// 컴포넌트가 로드될 때 게시물 데이터와 댓글 데이터 가져오기
+useEffect(() => {
+  fetchData();
+}, []);  // 빈 배열을 사용하여 컴포넌트가 처음 로드될 때만 호출
+
+// 또는 useCallback 사용
+const fetchDataCallback = useCallback(() => {
+  fetchData();
+}, []);  // 빈 배열을 사용하여 fetchData 함수가 변하지 않음을 보장
+
+// 컴포넌트가 로드될 때 게시물 데이터와 댓글 데이터 가져오기
+useEffect(() => {
+  fetchDataCallback();
+}, [fetchDataCallback]);
+
 
   // 댓글 입력 값이 변경될 때 호출되는 함수
   const commentChange = (e) => {
