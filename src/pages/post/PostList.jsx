@@ -32,18 +32,18 @@ function PostList() {
     fetchData();
   }, [fetchData]);
 
-  // 페이지 변경 시 데이터 가져오기
-  useEffect(() => {
-    // postData 함수 정의
-    const postData = async () => {
-      // 여기에 해당 함수의 내용을 추가
-    };
 
-    // fetchData와 totalDataLength를 종속성 배열에 추가
-    postData();
-    console.log(totalDataLength);
-  }, [page, totalDataLength, fetchData]);
+  // // 페이지 변경 시 데이터 가져오기
+  // useEffect(() => {
+  //   // postData 함수 정의
+  //   const postData = async () => {
+  //     // 여기에 해당 함수의 내용을 추가
+  //   };
 
+  //   // fetchData와 totalDataLength를 종속성 배열에 추가
+  //   postData();
+  //   console.log(totalDataLength);
+  // }, [page, totalDataLength, fetchData]);
 
   return (
     <LayoutWrapper>
