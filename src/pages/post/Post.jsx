@@ -15,7 +15,6 @@ function Post() {
   // 게시물 데이터 및 관련 상태 변수 초기화
   const [data, setData] = useState({ post: {} }); // 게시물 데이터
   const [commentData, setCommentData] = useState([]); // 댓글 데이터
-  const [comment, setComment] = useState(''); // 댓글 입력 필드
   const [newComment, setNewComment] = useState(''); // 새로운 댓글 입력 필드
 
   // 현재 경로 정보 가져오기
@@ -45,7 +44,7 @@ function Post() {
   // 컴포넌트가 로드될 때 게시물 데이터와 댓글 데이터 가져오기
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   // 댓글 입력 값이 변경될 때 호출되는 함수
   const commentChange = (e) => {

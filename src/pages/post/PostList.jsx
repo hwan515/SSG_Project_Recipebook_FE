@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { styled } from "styled-components";
 import { LayoutWrapper } from "../../layout/Layout";
 import Button from "../../components/button/Button";
@@ -28,11 +27,13 @@ function PostList() {
     console.log(totalDataLength);
   };
 
-  // 페이지 변경 시 데이터 가져오기
-  useEffect(() => {
-    postData();
-    console.log(totalDataLength);
-  }, [page]);
+
+// 페이지 변경 시 데이터 가져오기
+useEffect(() => {
+  postData();
+  console.log(totalDataLength);
+}, [page, postData, totalDataLength]);  // 종속성 배열에 사용된 변수와 함수 추가
+
 
   return (
     <LayoutWrapper>
