@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { styled } from "styled-components";
 import { LayoutWrapper } from "../../layout/Layout";
 import Button from "../../components/button/Button";
@@ -9,7 +8,7 @@ import Paging from "../../components/paging/Paging";
 import PostListContent from "./PostListContent";
 import PostListAPI from "../../api/posts/PostListAPI";
 import Loading from "../loading/Loading";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoginAtom } from '../../atom/Atom';
 

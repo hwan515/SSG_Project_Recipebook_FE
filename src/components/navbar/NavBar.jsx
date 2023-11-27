@@ -1,7 +1,6 @@
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ReactComponent as ProfileIcon } from '../../assets/img/icon-user.svg';
 import {
   accessTokenAtom,
   csrfTokenAtom,

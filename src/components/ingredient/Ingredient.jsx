@@ -1,6 +1,4 @@
 import { useCallback, useState } from 'react';
-import Input from '../input/Input';
-import { MdAdd } from 'react-icons/md';
 import { ReactComponent as PlusButton } from '../../assets/img/icon-plus.svg';
 import { styled } from 'styled-components';
 

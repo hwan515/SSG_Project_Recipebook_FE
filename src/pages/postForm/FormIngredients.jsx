@@ -1,18 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { MdAdd } from 'react-icons/md';
-import axios from 'axios';
 import Button from '../../components/button/Button';
 import { styled } from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { accessTokenAtom, csrfTokenAtom } from '../../atom/Atom';
 import PostRecipeAPI from '../../api/form/PostRecipe';
 import IngredientsAPI from '../../api/form/IngredientsAPI';
-import Loading from '../loading/Loading';
-import Input from '../../components/input/Input';
 import { Ingredient } from '../../components/ingredient/Ingredient';
 import { SectionWrapper } from '../post/Post';
-import { FixedIn } from '../../components/ingredient/FixedIn';
 
 function FormIngredients() {
   // Recoil 상태 및 Router 훅 사용
@@ -30,7 +25,6 @@ function FormIngredients() {
 
   // 재료 데이터 및 선택된 재료 초기화
   const [inData, setInData] = useState([]);
-  const [selected, setSelected] = useState([]);
 
   // Router 훅 사용
   const navigate = useNavigate();

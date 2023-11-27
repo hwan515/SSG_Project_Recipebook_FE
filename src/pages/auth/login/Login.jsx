@@ -17,13 +17,12 @@ import {
 function Login() {
   const [userId, setUserId] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [isIdValid, setIsIdValid] = useState(null);
   const [isPwValid, setIsPwValid] = useState(null);
 
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
-  const [csrfToken, setCsrfToken] = useRecoilState(csrfTokenAtom);
-  const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
-  const [userName, setUserName] = useRecoilState(userNameAtom);
+  const [ setAccessToken] = useRecoilState(accessTokenAtom);
+  const [ setCsrfToken] = useRecoilState(csrfTokenAtom);
+  const [ setIsLogin] = useRecoilState(isLoginAtom);
+  const [ setUserName] = useRecoilState(userNameAtom);
 
   const navigate = useNavigate();
 

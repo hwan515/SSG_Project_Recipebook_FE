@@ -22,7 +22,7 @@ const linkStyle = {
 // Main 컴포넌트
 function Main() {
   // 로그인 상태를 관리하는 상태 변수
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn] = useState(false);
 
   return (
     <>

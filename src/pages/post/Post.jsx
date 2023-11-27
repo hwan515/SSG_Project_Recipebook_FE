@@ -15,7 +15,6 @@ function Post() {
   // 상태 초기화
   const [data, setData] = useState({ post: {} });
   const [commentData, setCommentData] = useState([]);
-  const [comment, setComment] = useState('');
   const [newComment, setNewComment] = useState('');
 
   // 현재 URL에서 게시물 ID 추출
