@@ -40,8 +40,23 @@ function Post() {
 
   useEffect(() => {
     // 컴포넌트 마운트 시 데이터 가져오기
-    fetchData();
-  }, []);
+    const fetchDataAndSetData = async () => {
+      await fetchData();
+    };
+  
+    fetchDataAndSetData();
+  }, [fetchData]); // fetchData를 의존성 배열에 추가
+  
+  useEffect(() => {
+    // 댓글 데이터 갱신
+    const fetchCommentData = async () => {
+      const newRes = await fetchData();
+      setCommentData(newRes.comments);
+    };
+  
+    // 댓글 데이터 갱신은 fetchData에 의존하므로 fetchData를 의존성 배열에 추가
+    fetchCommentData();
+  }, [fetchData]);
 
   // 댓글 입력 핸들러
   const commentChange = (e) => {

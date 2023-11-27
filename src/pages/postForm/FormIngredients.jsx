@@ -53,7 +53,7 @@ function FormIngredients() {
       ...prevData,
       post: { ...prevData.post, title: title, content: contents },
     }));
-  }, []);
+  }, [title, contents]);
 
   const saveForm = async () => {
     // 게시글 저장 로직 추가

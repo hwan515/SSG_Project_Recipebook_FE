@@ -1,4 +1,4 @@
-import stlyed, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import '../assets/font.css';
 
 // 전역 스타일 정의
