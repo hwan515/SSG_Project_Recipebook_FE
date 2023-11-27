@@ -37,10 +37,10 @@ function FormIngredients() {
   const postRecipe = PostRecipeAPI(formData, token, CsrfToken);
 
   // 재료 데이터를 가져오는 API 호출 함수
-  const getInApi = async () => {
+  const getInApi = useCallback(async () => {
     const indata = await getIngredients();
     return indata;
-  };
+  }, [getIngredients]);
 
   useEffect(() => {
     // 컴포넌트가 마운트되면 재료 데이터를 가져와서 상태에 저장

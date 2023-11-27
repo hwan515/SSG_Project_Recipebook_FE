@@ -43,7 +43,7 @@ function PostList() {
   // 페이지 변경 시 데이터 가져오기
   useEffect(() => {
     postData();
-  }, [page, totalDataLength, postData]);
+  }, [page, totalDataLength]);
 
   return (
     <LayoutWrapper>
