@@ -29,21 +29,21 @@ function PostList() {
     }
   };
 
-  // 데이터 가져오는 함수
-  const postData = async () => {
-    const newData = await getPostList();
-    setData(newData);
-    if (page === 1) {
-      setTotalDataLength(newData.posts[0].id);
-    }
-    console.log(newData);
-    console.log(totalDataLength);
-  };
-
   // 페이지 변경 시 데이터 가져오기
   useEffect(() => {
+    // 데이터 가져오는 함수
+    const postData = async () => {
+      const newData = await getPostList();
+      setData(newData);
+      if (page === 1) {
+        setTotalDataLength(newData.posts[0].id);
+      }
+      console.log(newData);
+      console.log(totalDataLength);
+    };
+
     postData();
-  }, [page, totalDataLength, postData]);
+  }, [page, totalDataLength]);
 
   return (
     <LayoutWrapper>
