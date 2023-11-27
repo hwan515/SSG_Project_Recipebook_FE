@@ -17,7 +17,6 @@ function PostList() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState({ posts: [] });
   const [totalDataLength, setTotalDataLength] = useState(0);
-  const getPostList = PostListAPI(page);
   const navigate = useNavigate();
   const isLogin = useRecoilValue(isLoginAtom);
 
@@ -29,10 +28,13 @@ function PostList() {
     }
   };
 
+  // 데이터 가져오는 함수
+  const getPostList = PostListAPI(page);
+
   // 페이지 변경 시 데이터 가져오기
   useEffect(() => {
     // 데이터 가져오는 함수
-    const postData = async () => {
+    const fetchData = async () => {
       const newData = await getPostList();
       setData(newData);
       if (page === 1) {
@@ -42,8 +44,9 @@ function PostList() {
       console.log(totalDataLength);
     };
 
+    // 컴포넌트 마운트 시 데이터 가져오기
     fetchData();
-  }, [page, totalDataLength, getPostList]);
+  }, [page, totalDataLength, getPostList]); // getPostList를 의존성 배열에 추가
 
   return (
     <LayoutWrapper>
