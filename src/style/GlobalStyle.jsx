@@ -1,11 +1,11 @@
-import { createGlobalStyle } from 'styled-components';
+import stlyed, { createGlobalStyle } from 'styled-components';
 import '../assets/font.css';
 
 // 전역 스타일 정의
 const GlobalStyle = createGlobalStyle`
   // 변수 정의: 주요 색상 설정
   :root {
-    --main-color: #ff7028;
+    --main-color: #FF7043;
   }
 
   // HTML 및 body 요소에 대한 기본 스타일 설정

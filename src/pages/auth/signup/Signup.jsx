@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 // 회원가입 페이지 컴포넌트
 function Signup() {
   const [userId, setUserId] = useState('');
-  const [userIdValid] = useState(true);
+  const [userIdValid, setUserIdValid] = useState(true);
   const [userPassword, setUserPassword] = useState('');
   const [userPasswordCheck, setUserPasswordCheck] = useState('');
   const [passwordValid, setPasswordValid] = useState(true);

@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { styled } from "styled-components";
 import { LayoutWrapper } from "../../layout/Layout";
 import Button from "../../components/button/Button";
@@ -8,48 +9,50 @@ import Paging from "../../components/paging/Paging";
 import PostListContent from "./PostListContent";
 import PostListAPI from "../../api/posts/PostListAPI";
 import Loading from "../loading/Loading";
+import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { isLoginAtom } from '../../atom/Atom';
 
 function PostList() {
   // 상태 변수 초기화
   const [page, setPage] = useState(1);
   const [data, setData] = useState({ posts: [] });
   const [totalDataLength, setTotalDataLength] = useState(0);
+  const getPostList = PostListAPI(page);
+  const navigate = useNavigate();
+  const isLogin = useRecoilValue(isLoginAtom);
+
+  const formButton = () => {
+    if (isLogin) {
+      navigate('/posts/form');
+    } else if (!isLogin) {
+      navigate('/login');
+    }
+  };
 
   // 데이터 가져오는 함수
-  const getPostList = useCallback(() => PostListAPI(page), [page]);
-
-  const fetchData = useCallback(async () => {
+  const postData = async () => {
     const newData = await getPostList();
     setData(newData);
-    if (page === 1 && newData.posts && newData.posts.length > 0) {
+    if (page === 1) {
       setTotalDataLength(newData.posts[0].id);
     }
     console.log(newData);
     console.log(totalDataLength);
-  }, [page, setTotalDataLength, getPostList, totalDataLength]);  
+  };
 
+  // 페이지 변경 시 데이터 가져오기
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-
-  // // 페이지 변경 시 데이터 가져오기
-  // useEffect(() => {
-  //   // postData 함수 정의
-  //   const postData = async () => {
-  //     // 여기에 해당 함수의 내용을 추가
-  //   };
-
-  //   // fetchData와 totalDataLength를 종속성 배열에 추가
-  //   postData();
-  //   console.log(totalDataLength);
-  // }, [page, totalDataLength, fetchData]);
+    postData();
+    console.log(totalDataLength);
+  }, [page]);
 
   return (
     <LayoutWrapper>
       <HeadWrapper>
         {/* 레시피 등록 버튼 */}
         <Button
+          onClick={formButton}
           content='레시피 등록하기'
           backgroundcolor='white'
           color='black'
@@ -71,7 +74,7 @@ function PostList() {
           <th style={{ width: "25%" }}>공유자</th>
           <th style={{ width: "25%" }}>작성일</th>
         </ListHeadWrapper>
-        {data.posts && data.posts.length > 0 ? (
+        {data.posts.length > 0 ? (
           data.posts.map((res, i) => <PostListContent key={i} data={res} />)
         ) : (
           // 로딩 컴포넌트
