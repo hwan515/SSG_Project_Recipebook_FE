@@ -42,8 +42,8 @@ function PostList() {
       console.log(totalDataLength);
     };
 
-    postData();
-  }, [page, totalDataLength]);
+    fetchData();
+  }, [page, totalDataLength, getPostList]);
 
   return (
     <LayoutWrapper>
