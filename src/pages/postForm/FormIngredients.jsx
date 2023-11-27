@@ -44,16 +44,19 @@ function FormIngredients() {
 
   useEffect(() => {
     // 컴포넌트가 마운트되면 재료 데이터를 가져와서 상태에 저장
-    getInApi().then((res) => {
-      setInData(res);
-    });
+    const fetchDataAndSetData = async () => {
+      const indata = await getInApi();
+      setInData(indata);
 
     // 폼 데이터 초기화
     setFormData((prevData) => ({
       ...prevData,
-      post: { ...prevData.post, title: title, content: contents },
+      post: { ...prevData.post, title, content: contents },
     }));
-  }, [title, contents]);
+  };
+
+  fetchDataAndSetData();
+}, [getInApi, title, contents]);
 
   const saveForm = async () => {
     // 게시글 저장 로직 추가
