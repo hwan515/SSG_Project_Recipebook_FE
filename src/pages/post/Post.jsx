@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { styled } from 'styled-components';
 import { ReactComponent as LikeIcon } from '../../assets/img/icon-like.svg';
 import { useLocation } from 'react-router-dom';
@@ -31,12 +31,12 @@ function Post() {
   const postComment = PostCommentAPI(postID, token, csrfToken, newComment)
 
   // 게시물 및 댓글 데이터 가져오기
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     const res = await getPostDetail();
     setData(res.post);
     setCommentData(res.comments);
     return res;
-  }
+  }, [getPostDetail]);
 
   useEffect(() => {
     // 컴포넌트 마운트 시 데이터 가져오기
