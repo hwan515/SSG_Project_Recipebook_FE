@@ -11,11 +11,19 @@ const SignAPI = async (userInfo) => {
         'Content-Type': 'application/json' // 요청 헤더에 JSON 데이터로 설정
       }
     });
+
+    if (!res.ok) {
+      // HTTP 상태 코드에 따라 에러 처리
+      console.error('서버 응답 오류:', res.status, res.statusText);
+      return { error: '서버 응답 오류' };
+    }
+
     // 응답 데이터를 JSON 형식으로 파싱하여 반환
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error('회원가입 요청 실패', error); // 오류 발생 시 오류 메시지 출력
+    console.error('회원가입 요청 실패', error);
+    return { error: '회원가입 요청 실패' }; // 오류 발생 시 오류 메시지 출력
   }
 };
 
