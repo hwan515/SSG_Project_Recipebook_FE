@@ -8,7 +8,7 @@ const SignAPI = async (userInfo) => {
       method: 'POST',
       body: JSON.stringify({ ...userInfo }), // 사용자 정보를 JSON 형식으로 전송
       headers: {
-        'Content-Type': 'application/json', // 요청 헤더에 JSON 데이터로 설정
+        'Content-Type': 'application/json' // 요청 헤더에 JSON 데이터로 설정
       },
     });
     // 응답 데이터를 JSON 형식으로 파싱하여 반환
